@@ -14,6 +14,9 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { counterReducer } from './counter';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -63,7 +66,11 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    StoreModule.provideStore({ counter: counterReducer }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    })
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
