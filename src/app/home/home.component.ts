@@ -7,6 +7,10 @@ import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
 
+import { Store } from '@ngrx/store';
+import { INCREMENT, DECREMENT, RESET } from '../counter';
+import {Observable} from "rxjs/Observable";
+
 @Component({
   /**
    * The selector is what angular internally uses
@@ -30,6 +34,7 @@ import { XLargeDirective } from './x-large';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
+  counter: Observable<number>;
   /**
    * Set our default values
    */
@@ -39,8 +44,11 @@ export class HomeComponent implements OnInit {
    */
   constructor(
     public appState: AppState,
-    public title: Title
-  ) {}
+    public title: Title,
+    private store: Store<AppState>
+  ) {
+    this.counter = store.select('counter');
+  }
 
   public ngOnInit() {
     console.log('hello `Home` component');
@@ -54,4 +62,16 @@ export class HomeComponent implements OnInit {
     this.appState.set('value', value);
     this.localState.value = '';
   }
+
+  increment(){
+		this.store.dispatch({ type: INCREMENT });
+	}
+
+	decrement(){
+		this.store.dispatch({ type: DECREMENT });
+	}
+
+	reset(){
+		this.store.dispatch({ type: RESET });
+	}
 }

@@ -2,7 +2,11 @@
   <h1 x-large class="sample-content">Your Content Here</h1>
 
   <hr>
+  <button (click)="increment()">Increment</button>
+  		<div>Current Count: {{ counter | async }}</div>
+  		<button (click)="decrement()">Decrement</button>
 
+  		<button (click)="reset()">Reset Counter</button>
   <div>
     For hot module reloading run
     <pre>npm run start:hmr</pre>
