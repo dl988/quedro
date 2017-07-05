@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
 import {
   NgModule,
   ApplicationRef
@@ -14,9 +15,11 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { counterReducer } from './counter';
+import { EffectsModule } from '@ngrx/effects';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -28,10 +31,35 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './home';
-import { AboutComponent } from './about';
+import { LoginComponent } from './login';
+import { LogoutComponent } from './logout';
 import { NoContentComponent } from './no-content';
-import { XLargeDirective } from './home/x-large';
+import { AuthGuard } from './auth-guard.service';
+import { HttpClient } from './http.client';
 
+// Product Component
+import { 
+  ProductComponent,
+  AddProductComponent,
+  ProductActions,
+  ProductService,
+  ProductApi,
+  ProductEffect,
+  ProductReducer } from './product';
+
+// User Component
+import {
+  UserActions,
+  UserService,
+  UserApi,
+  UserEffect,
+  UserReducer
+} from './user';
+
+// Components
+import { HeaderComponent } from './header';
+
+// Stylesheet
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -54,32 +82,52 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    AboutComponent,
+    LoginComponent,
+    LogoutComponent,
     HomeComponent,
+    ProductComponent,
+    AddProductComponent,
     NoContentComponent,
-    XLargeDirective
+    HeaderComponent
   ],
   /**
    * Import Angular's modules.
    */
   imports: [
+    BrowserAnimationsModule,
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
-    StoreModule.provideStore({ counter: counterReducer }),
+    RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules }),
+    StoreModule.provideStore({
+      products: ProductReducer,
+      user: UserReducer
+    }),
     StoreDevtoolsModule.instrumentOnlyWithExtension({
       maxAge: 5
-    })
+    }),
+    EffectsModule.run(ProductEffect),
+    EffectsModule.run(UserEffect)
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
    */
   providers: [
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    ProductActions,
+    ProductService,
+    ProductApi,
+    UserActions,
+    UserService,
+    UserApi,
+    AuthGuard,
+    HttpClient
   ]
 })
+
 export class AppModule {
 
   constructor(
