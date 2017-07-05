@@ -1,0 +1,15 @@
+<div class="b-product-detail">
+  <div class="wrap">
+    <button [routerLink]=" ['./', {outlets: {'sidebar': ['edit']}}] " class="btn-edit btn btn-default">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </button>
+
+    <div class="title">{{item.street}}</div>
+    <div class="description">{{item.zip}}, {{item.city}}</div>
+    <div class="extra">{{item.type}}, {{item.price}}</div>
+
+    <div class="status">{{item.status}}</div>
+  </div>
+</div>
+
+<router-outlet name="sidebar"></router-outlet>

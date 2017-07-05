@@ -1,0 +1,37 @@
+.b-product-detail {
+  max-width: 60%;
+  margin: auto;
+
+  .wrap {
+    position: relative;
+    text-align: center;
+    border-radius: 2px;
+    padding: 20px 10px;
+    background-color: #fff;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .title,
+  .description,
+  .extra {
+    margin-bottom: 10px;
+  }
+
+  .btn-edit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    i {
+      color: #4a90e2;
+    }
+  }
+}
