@@ -1,5 +1,6 @@
 /* this file will be extracted to main dist folder and is imported in index.html */
 /* This file is for setting global styles  */
+@import "../../node_modules/bootstrap/scss/bootstrap";
 @import 'variables';
 
 nav {
@@ -16,4 +17,162 @@ nav a {
   text-align: center;
   text-decoration: none;
   border-radius: 4px;
+}
+
+body {
+  background-color: #eaecee;
+}
+
+/* Spinner */
+.animationload {
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+.osahanloading {
+  animation: 1.5s linear 0s normal none infinite running osahanloading;
+  background: #fed37f none repeat scroll 0 0;
+  border-radius: 50px;
+  height: 50px;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: absolute;
+  top: 50%;
+  width: 50px;
+}
+
+.osahanloading::after {
+  animation: 1.5s linear 0s normal none infinite running osahanloading_after;
+  border-color: #85d6de transparent;
+  border-radius: 80px;
+  border-style: solid;
+  border-width: 10px;
+  content: "";
+  height: 80px;
+  left: -15px;
+  position: absolute;
+  top: -15px;
+  width: 80px;
+}
+
+@keyframes osahanloading {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    background: #85d6de none repeat scroll 0 0;
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Layout */
+.layout {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .layout-left {
+    float: left;
+  }
+
+  .layout-right {
+    float: right;
+  }
+
+  .layout-middle {
+    overflow: hidden;
+  }
+}
+
+/* Main Area */
+.main-area {
+  padding: 30px;
+}
+
+/* User */
+.b-user {
+  text-align: center;
+  margin-top: 100px;
+
+  .buttons {
+    display: inline-block;
+  }
+
+  .btn-default {
+    border-color: #ccc;
+      margin-right: 20px;
+  }
+}
+
+/* Sidebar */
+.b-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 480px;
+  background-color: #eeeeee;
+  border-left: 2px solid #959798;
+  box-shadow: 8px 0 15px -4px rgba(202, 207, 214, 0.8), -8px 0 8px -4px rgba(209, 210, 212, 0.8);
+  
+  .btn-close {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .title,
+  .footer {
+    height: 65px;
+    line-height: 65px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .title {
+    background-color: #f1f6f7;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    position: relative;
+
+    .btn-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      height: 45px;
+      width: 45px;
+      color: #555555;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    text-align: right;
+    width: 100%;
+  }
+
+  .content {
+    padding: 20px;
+
+    .form-control {
+      line-height: 2.15;
+      border-color: transparent;
+    }
+  }
 }
