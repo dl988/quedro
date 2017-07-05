@@ -1,0 +1,30 @@
+ <div class="b-sidebar" [@slideInOut]="menuState">
+  <div class="title">
+    <span>Edit Residence</span>
+    <a (click)="close()" class="btn-close btn btn-default">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="content">
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Street">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Zip">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="City">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Residence type">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Price">
+      </div>
+    </form>
+  </div>
+  <div class="footer">
+    <button type="button" class="btn btn-success">Save</button>
+  </div>
+</div>
