@@ -41,6 +41,8 @@ import { HttpClient } from './http.client';
 import { 
   ProductComponent,
   AddProductComponent,
+  EditProductComponent,
+  DetailProductComponent,
   ProductActions,
   ProductService,
   ProductApi,
@@ -87,6 +89,8 @@ type StoreType = {
     HomeComponent,
     ProductComponent,
     AddProductComponent,
+    EditProductComponent,
+    DetailProductComponent,
     NoContentComponent,
     HeaderComponent
   ],
