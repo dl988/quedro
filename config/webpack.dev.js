@@ -219,10 +219,10 @@ module.exports = function (options) {
      */
     devServer: {
       port: METADATA.port,
-      //host: METADATA.host,
+      host: METADATA.host,
       historyApiFallback: true,
       //hot: true,
-      host: '0.0.0.0',
+      //host: '0.0.0.0',
       disableHostCheck: true,
       watchOptions: {
         // if you're using Docker you may need this
