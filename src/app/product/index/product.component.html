@@ -1,0 +1,15 @@
+<div class="b-products" [@animate]="animate">
+  <div class="product-item" *ngFor="let item of products | async">
+    <div class="wrap-all">
+      <div class="title">{{item.street}}</div>
+      <div class="description">{{item.zip}}, {{item.city}}</div>
+      <div class="extra">{{item.type}}, {{item.price}}</div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loadingStatus" class="animationload">
+  <div class="osahanloading"></div>
+</div>
+
+<router-outlet name="sidebar"></router-outlet>
