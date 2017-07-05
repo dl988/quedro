@@ -1,83 +1,41 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  inject,
-  async,
-  TestBed,
-  ComponentFixture
-} from '@angular/core/testing';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Component } from '@angular/core';
-import {
-  BaseRequestOptions,
-  ConnectionBackend,
-  Http
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 /**
  * Load the implementations that should be tested.
  */
-import { AppState } from '../app.service';
-import { HomeComponent } from './home.component';
-import { Title } from './title';
+import { AboutComponent } from './about.component';
 
-describe(`Home`, () => {
-  let comp: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
-
+describe('About', () => {
   /**
-   * async beforeEach.
+   * Provide our implementations or mocks to the dependency injector
    */
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [HomeComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backend, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        },
-        AppState,
-        Title,
-      ]
-    })
-    /**
-     * Compile template and css.
-     */
-    .compileComponents();
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [
+      /**
+       * Provide a better mock.
+       */
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          data: {
+            subscribe: (fn: (value: Data) => void) => fn({
+              yourData: 'yolo'
+            })
+          }
+        }
+      },
+      AboutComponent
+    ]
   }));
 
-  /**
-   * Synchronous beforeEach.
-   */
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    comp = fixture.componentInstance;
-
-    /**
-     * Trigger initial data binding.
-     */
-    fixture.detectChanges();
-  });
-
-  it('should have default data', () => {
-    expect(comp.localState).toEqual({ value: '' });
-  });
-
-  it('should have a title', () => {
-    expect(!!comp.title).toEqual(true);
-  });
-
-  it('should log ngOnInit', () => {
+  it('should log ngOnInit', inject([AboutComponent], (about: AboutComponent) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 
-    comp.ngOnInit();
+    about.ngOnInit();
     expect(console.log).toHaveBeenCalled();
-  });
+  }));
 
 });
