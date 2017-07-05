@@ -1,5 +1,5 @@
 <div class="b-products" [@animate]="animate">
-  <div class="product-item" *ngFor="let item of products | async">
+  <div *ngFor="let item of products | async" [routerLink]="['/detail', item._id]" class="product-item" >
     <div class="wrap-all">
       <div class="title">{{item.street}}</div>
       <div class="description">{{item.zip}}, {{item.city}}</div>
@@ -11,5 +11,4 @@
 <div *ngIf="loadingStatus" class="animationload">
   <div class="osahanloading"></div>
 </div>
-
 <router-outlet name="sidebar"></router-outlet>

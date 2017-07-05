@@ -26,14 +26,14 @@ import { ProductActions } from '../product.actions';
   templateUrl: './product.component.html',
   animations: [
     trigger('animate', [
-      state('in', style({
+      state('hide', style({
         opacity: 0
       })),
-      state('out', style({
+      state('shoe', style({
         opacity: 1
       })),
-      transition('in => out', animate('400ms')),
-      transition('out => in', animate('400ms'))
+      transition('hide => show', animate('400ms')),
+      transition('show => hide', animate('400ms'))
     ]),
   ]
 })
@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit {
   public user: Observable<any>;
   static apiFetched = false;
   public loadingStatus = !ProductComponent.apiFetched;
-  public animate = ProductComponent.apiFetched ? 'out' : 'in';
+  public animate = ProductComponent.apiFetched ? 'show' : 'hide';
 
   public localState = { value: '' };
 
@@ -76,7 +76,7 @@ export class ProductComponent implements OnInit {
 
       ProductComponent.apiFetched = true;
       that.loadingStatus = !ProductComponent.apiFetched;
-      that.animate = 'out';
+      that.animate = 'show';
 
       that.store.dispatch(that.productActions.fetchProductsFulfilled({
         products: [...firstEmitted, ...secondEmitted]
