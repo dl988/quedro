@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class HttpClient {
 
-  constructor (private http: Http) {}
+  constructor (private http: Http, private authService: AuthService) {}
 
   createAuthorizationHeader (headers: Headers) {
-    headers.append('x-auth', localStorage.getItem('token')); 
+    headers.append('x-auth', this.authService.getUserToken()); 
   }
 
   get (url) {

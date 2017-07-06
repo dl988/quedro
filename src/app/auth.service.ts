@@ -8,6 +8,17 @@ export class AuthService {
 
   constructor ( private route: Router, private store: Store<any> , private userActions : UserActions) {}
 
+  public setUserInfo (data) {
+    let {status, token } = data;
+
+    localStorage.setItem('logged_in', status);
+    localStorage.setItem('token', token);
+  }
+
+  public getUserToken () {
+    return localStorage.getItem('token');
+  }
+
   public isLoggedIn () {
     return localStorage.getItem('logged_in') ? true : false;
   }

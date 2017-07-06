@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from "rxjs/Observable";
 import { Store } from '@ngrx/store';
+import { AuthService } from '../auth.service';
 
 import { 
   UserService, 
@@ -51,7 +52,8 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private store: Store<any>,
     public userService: UserService,
-    public userActions: UserActions
+    public userActions: UserActions,
+    private authService: AuthService
   ) {
     this.user = store.select('user');
   }
@@ -91,9 +93,7 @@ export class LoginComponent implements OnInit {
   }
 
   public loggedIn (user) {
-    localStorage.setItem('logged_in', 'true');
-    localStorage.setItem('token', user.token);
-
+    this.authService.setUserInfo({status: true, token: user.token});
     this.route.navigate(['product']);
   }
 
