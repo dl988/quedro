@@ -1,3 +1,6 @@
+#Ignore persional configuration
+/config/webpack.dev.js
+
 # @AngularClass
 
 # Logs
