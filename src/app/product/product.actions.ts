@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 export class ProductActions {
+  static ADD_PRODUCT = 'ADD_PRODUCT';
   static FETCH_PRODUCT = 'FETCH_PRODUCT';
   static FETCH_PRODUCTS = 'FETCH_PRODUCTS';
   static FETCH_PRODUCTS_FULFILLED = 'FETCH_PRODUCTS_FULFILLED';
@@ -15,6 +16,15 @@ export class ProductActions {
   //===================================
   //  FETCH
   //-----------------------------------
+
+
+  // Add product
+  addProduct (product: any): Action {
+    return {
+      type: ProductActions.ADD_PRODUCT,
+      payload: product
+    }
+  }
 
   // Fetch product
   fetchProduct (): Action {

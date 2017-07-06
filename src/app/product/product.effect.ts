@@ -21,6 +21,22 @@ export class ProductEffect {
   ) {}
 
   @Effect()
+  addProduct$ = this.actions$
+    .ofType(ProductActions.ADD_PRODUCT)
+    .switchMap((data) => this.api.addProduct(data.payload)
+      .map(results => {
+        const product = results.json();
+
+        console.log('product ', product);
+
+        // return this.productActions.fetchProductsFulfilled({
+        //   products: products['objects']
+        // })
+      })
+      .catch(error => Observable.of(this.productActions.fetchProductsFailed(error)))
+    );
+
+  @Effect()
   fetchProducts$ = this.actions$
     .ofType(ProductActions.FETCH_PRODUCTS)
     .switchMap(() => this.api.fetchProducts()

@@ -10,6 +10,9 @@ import {
   transition
 } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { ProductActions } from '../product.actions';
 
 @Component({
   selector: 'add-product',
@@ -31,11 +34,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class AddProductComponent implements OnInit {
   public menuState : string = 'out';
+   public producForm: FormGroup;
 
-  constructor( public route: ActivatedRoute, public router: Router ) {}
+  constructor( 
+    public route: ActivatedRoute, 
+    public router: Router,
+    private formBuilder: FormBuilder,
+    private store: Store<any>,
+    private productActions: ProductActions
+  ) {}
 
   public ngOnInit() {
     let that = this;
+
+    this.producForm = this.formBuilder.group({
+      street: [],
+      zip: [],
+      city: [],
+      type: [],
+      price: []
+    });
 
     setTimeout(() => {
       that.menuState = 'in';
@@ -49,5 +67,10 @@ export class AddProductComponent implements OnInit {
     setTimeout(() => {
       that.router.navigate( ['/product']);
     }, 400);
+  }
+
+  public save () {
+    this.store.dispatch(this.productActions.addProduct(this.producForm.value));
+    console.log('save click ', this.producForm.value);
   }
 }
