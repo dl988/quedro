@@ -4,6 +4,7 @@ export class UserActions {
   static FETCH_USER = 'FETCH_USER';
   static FETCH_USER_FAILED = 'FETCH_USER_FAILED';
   static USER_FETCHED = 'USER_FETCHED';
+  static LOGOUT_USER = 'LOGOUT_USER';
 
   fetchUser (user: any): Action {
     return {
@@ -28,6 +29,12 @@ export class UserActions {
       payload: {
         user
       }
+    }
+  }
+
+  logoutUser (): Action {
+    return {
+      type: UserActions.LOGOUT_USER
     }
   }
 }

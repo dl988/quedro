@@ -2,30 +2,18 @@ import {
   Component
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'logout',
-  styles: [`
-    .b-logout {
-      text-align: center;
-    }
-  `],
-  template: `
-    <div class="b-logout">
-      <button type="button" class="btn btn-warning" (click)="logout()">Logout</button>
-    </div>
-  `
+  styles: [``],
+  template: ` `
 })
 
 export class LogoutComponent {
 
-  constructor(private route: Router) {}
-
-  public logout () {
-    localStorage.removeItem('logged_in');
-    localStorage.removeItem('token');
-
-    this.route.navigate(['home']);
+  constructor( private route: Router, private authService: AuthService ) {
+    this.authService.logout();
   }
 
 }

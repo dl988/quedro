@@ -3,6 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'home',
@@ -10,27 +11,32 @@ import { Router } from '@angular/router';
   `],
   template: `
     <div class="b-user">
-      <div class="buttons">
-        <a [routerLink]=" ['/login'] "
-          routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="btn btn-default">
+      <div *ngIf="!loginStatus" class="buttons">
+        <a [routerLink]=" ['/login'] " class="btn btn-default">
           Login
         </a>
-        <a [routerLink]=" ['/register'] "
-          routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="btn btn-info">
+        <a [routerLink]=" ['/register'] " class="btn btn-info">
           Register
+        </a>
+      </div>
+
+      <div *ngIf="loginStatus" class="buttons">
+        <a [routerLink]=" ['/product'] " class="btn btn-primary">
+          Products
+        </a>
+        <a [routerLink]=" ['/logout'] " class="btn btn-danger">
+          Logout
         </a>
       </div>
     </div>
   `
 })
 export class HomeComponent implements OnInit {
+  public loginStatus: boolean = false;
 
-
-  constructor(private route: Router) {}
+  constructor( private route: Router, private authService: AuthService ) {}
 
   public ngOnInit() {
-    // if (localStorage.getItem('logged_in')) {
-    //   this.route.navigate(['product']);
-    // }
+    this.loginStatus = this.authService.isLoggedIn();
   }
 }

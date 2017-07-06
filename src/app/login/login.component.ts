@@ -19,7 +19,7 @@ import {
   `],
   template: `
     <div class="b-login">
-      <form [formGroup]="myForm" novalidate (ngSubmit)="login(myForm.value, myForm.valid)">
+      <form [formGroup]="myForm" novalidate (ngSubmit)="login()">
         <div class="form-group">
           <label for="username">User name:</label>
           <input type="text" class="form-control" id="username" placeholder="User name" formControlName="username" />
@@ -34,7 +34,7 @@ import {
           Name is required (minimum 5 characters).
         </small>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button (click)="logging($event.target, 'Loading ...')" type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
   `
@@ -73,12 +73,21 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public login (model, isValid) {
-
+  public login () {
+    let isValid = this.myForm.valid;
+    let { username, password } = this.myForm.value;
+    
     this.store.dispatch(this.userActions.fetchUser({
-      email: model.username,
-      password: model.password
+      email: username,
+      password
     }));
+  }
+
+  public logging (element, text) {
+    element.textContent = text;
+    element.disabled = true;
+
+    this.login();
   }
 
   public loggedIn (user) {

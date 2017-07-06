@@ -35,6 +35,7 @@ import { LoginComponent } from './login';
 import { LogoutComponent } from './logout';
 import { NoContentComponent } from './no-content';
 import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
 import { HttpClient } from './http.client';
 
 // Product Component
@@ -128,6 +129,7 @@ type StoreType = {
     UserService,
     UserApi,
     AuthGuard,
+    AuthService,
     HttpClient
   ]
 })

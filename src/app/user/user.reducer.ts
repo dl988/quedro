@@ -6,6 +6,9 @@ export const UserReducer: ActionReducer<any> = (state: any = {}, { payload, type
     case UserActions.USER_FETCHED:
       return payload.user || {}
 
+    case UserActions.LOGOUT_USER:
+      return {};
+
     case UserActions.FETCH_USER_FAILED:
       return payload.error
 
