@@ -2,6 +2,7 @@ import { ProductComponent } from './index/';
 import { AddProductComponent } from './add/';
 import { EditProductComponent } from './edit/';
 import { DetailProductComponent } from './detail/';
+import { ItemProductComponent } from './item/';
 import { ProductActions } from './product.actions';
 import { ProductService } from './product.service';
 import { ProductApi } from './product.api';
@@ -13,6 +14,7 @@ export {
   AddProductComponent,
   EditProductComponent,
   DetailProductComponent,
+  ItemProductComponent,
   ProductActions,
   ProductService,
   ProductApi,

@@ -3,6 +3,8 @@ import {
   OnInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ProductActions } from '../product.actions';
 
 @Component({
   selector: 'detail-product',
@@ -20,9 +22,16 @@ export class DetailProductComponent implements OnInit {
     status: 'SOLD'
   }
 
-  constructor( public route: ActivatedRoute, public router: Router ) {}
+  constructor ( 
+    public route: ActivatedRoute, 
+    public router: Router,
+    public store: Store<any>,
+    public productAction: ProductActions
+  ) {}
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    this.store.dispatch(this.productAction.fetchProduct());
+  }
 
   public close () {}
 }

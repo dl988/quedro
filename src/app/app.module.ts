@@ -44,6 +44,7 @@ import {
   AddProductComponent,
   EditProductComponent,
   DetailProductComponent,
+  ItemProductComponent,
   ProductActions,
   ProductService,
   ProductApi,
@@ -91,6 +92,7 @@ type StoreType = {
     ProductComponent,
     AddProductComponent,
     EditProductComponent,
+    ItemProductComponent,
     DetailProductComponent,
     NoContentComponent,
     HeaderComponent

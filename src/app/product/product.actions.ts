@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 export class ProductActions {
+  static FETCH_PRODUCT = 'FETCH_PRODUCT';
   static FETCH_PRODUCTS = 'FETCH_PRODUCTS';
   static FETCH_PRODUCTS_FULFILLED = 'FETCH_PRODUCTS_FULFILLED';
   static FETCH_PRODUCTS_FAILED = 'FETCH_PRODUCTS_FAILED';
@@ -15,14 +16,21 @@ export class ProductActions {
   //  FETCH
   //-----------------------------------
 
+  // Fetch product
+  fetchProduct (): Action {
+    return {
+      type: ProductActions.FETCH_PRODUCT
+    }
+  }
+
   // Fetch sold products
-  fetchSoldProducts(): Action {
+  fetchSoldProducts (): Action {
     return {
       type: ProductActions.FETCH_SOLD_PRODUCTS
     };
   }
 
-  soldProductsFetched(products: any): Action {
+  soldProductsFetched (products: any): Action {
     return {
       type: ProductActions.FETCH_PRODUCTS_FULFILLED,
       payload: products
@@ -30,13 +38,13 @@ export class ProductActions {
   }
 
   // Fetch avalable products
-  fetchAvailableProducts(): Action {
+  fetchAvailableProducts (): Action {
     return {
       type: ProductActions.FETCH_AVAILABLE_PRODUCTS
     };
   }
 
-  availableProductsFetched(products: any): Action {
+  availableProductsFetched (products: any): Action {
     return {
       type: ProductActions.FETCH_PRODUCTS_FULFILLED,
       payload: products
@@ -44,20 +52,20 @@ export class ProductActions {
   }
 
   // Fetch products
-  fetchProducts(): Action {
+  fetchProducts (): Action {
     return {
       type: ProductActions.FETCH_PRODUCTS
     };
   }
 
-  fetchProductsFailed(error: any): Action {
+  fetchProductsFailed (error: any): Action {
     return {
       type: ProductActions.FETCH_PRODUCTS_FAILED,
       payload: error
     };
   }
 
-  fetchProductsFulfilled(products: any): Action {
+  fetchProductsFulfilled (products: any): Action {
     return {
       type: ProductActions.FETCH_PRODUCTS_FULFILLED,
       payload: products

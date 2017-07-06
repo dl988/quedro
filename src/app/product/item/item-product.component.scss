@@ -1,0 +1,39 @@
+.product-item {
+  float: left;
+  width: 16.66%;
+  box-sizing: border-box;
+  padding: 10px;
+
+  .wrap-all {
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    min-height: 160px;
+    outline: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .title,
+  .description,
+  .extra {
+    color: #535353;
+  }
+
+  .title,
+  .description {
+    margin-bottom: 5px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .description,
+  .extra {
+    font-size: 0.8rem;
+  }
+}

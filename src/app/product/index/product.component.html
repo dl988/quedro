@@ -1,11 +1,8 @@
 <div class="b-products" [@animate]="animate">
-  <div *ngFor="let item of products | async" [routerLink]="['/detail', item._id]" class="product-item" >
-    <div class="wrap-all">
-      <div class="title">{{item.street}}</div>
-      <div class="description">{{item.zip}}, {{item.city}}</div>
-      <div class="extra">{{item.type}}, {{item.price}}</div>
-    </div>
-  </div>
+  <item-product
+    *ngFor="let item of products | async"
+    [product]="item"
+  ></item-product>
 </div>
 
 <div *ngIf="loadingStatus" class="animationload">

@@ -37,6 +37,7 @@ import { ProductActions } from '../product.actions';
     ]),
   ]
 })
+
 export class ProductComponent implements OnInit {
   public products: Observable<any>;
   public user: Observable<any>;
@@ -46,7 +47,7 @@ export class ProductComponent implements OnInit {
 
   public localState = { value: '' };
 
-  constructor(
+  constructor (
     private store: Store<any>,
     private route: ActivatedRoute,
     public userService: UserService,
@@ -58,7 +59,7 @@ export class ProductComponent implements OnInit {
     this.user = store.select('user');
   }
 
-  public ngOnInit() {
+  public ngOnInit () {
     if (!ProductComponent.apiFetched) this.fetchProducts();
   }
 
