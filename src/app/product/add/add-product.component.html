@@ -11,6 +11,6 @@
     ></form-product>
   </div>
   <div class="footer">
-    <button (click)="save()" type="button" class="btn btn-success">Save</button>
+    <button (click)="save()" [disabled]="!producForm.valid" type="button" class="btn btn-success">Save</button>
   </div>
 </div>

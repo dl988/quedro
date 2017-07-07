@@ -10,7 +10,8 @@ import {
   transition
 } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { isNumeric } from 'rxjs/util/isNumeric';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../product.actions';
 
@@ -34,7 +35,7 @@ import { ProductActions } from '../product.actions';
 
 export class AddProductComponent implements OnInit {
   public menuState : string = 'out';
-   public producForm: FormGroup;
+  public producForm: FormGroup;
 
   constructor( 
     public route: ActivatedRoute, 
@@ -47,12 +48,65 @@ export class AddProductComponent implements OnInit {
   public ngOnInit() {
     let that = this;
 
+    function validateZipcode(c: FormControl) {
+      return c.value.length === 5  ? null : {
+        validateZipcode: {
+          valid: false
+        }
+      };
+    }
+
+    function validateIsNumber (c: FormControl) {
+      return isNumeric(c.value) ? null : {
+        validateIsNumber: {
+          valid: false
+        }
+      };
+    }
+
+    function validateType () {
+      return (group: FormGroup) => {
+        if (group.controls['price'].value === null) {
+          return null;
+        } else {
+          return {
+            validateType: {
+              valid: false
+            }
+          }
+        }
+      }
+    }
+
+    function validatePrice () {
+      return (group: FormGroup) => {
+        if (group.controls['type'].value === null) {
+          return {
+            validatePrice: {
+              valid: false
+            }
+          };
+        } else {
+          return null;
+        }
+      }
+    }
+
     this.producForm = this.formBuilder.group({
-      street: [],
-      zip: [],
-      city: [],
-      type: [],
-      price: []
+      street: [null, Validators.required],
+      zip: new FormControl('', [
+        Validators.required,
+        validateZipcode,
+        validateIsNumber
+      ]),
+      city: [null, Validators.required],
+      type: new FormControl(null, [
+        validateType
+      ]),
+      price: new FormControl(null, [
+        validatePrice,
+        validateIsNumber
+      ])
     });
 
     setTimeout(() => {
