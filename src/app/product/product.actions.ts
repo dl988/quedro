@@ -2,6 +2,8 @@ import { Action } from '@ngrx/store';
 
 export class ProductActions {
   static ADD_PRODUCT = 'ADD_PRODUCT';
+  static ADD_PRODUCT_FAILED = 'ADD_PRODUCT_FAILED';
+  static ADD_PRODUCT_FULFILLED = 'ADD_PRODUCT_FULFILLED';
   static FETCH_PRODUCT = 'FETCH_PRODUCT';
   static FETCH_PRODUCTS = 'FETCH_PRODUCTS';
   static FETCH_PRODUCTS_FULFILLED = 'FETCH_PRODUCTS_FULFILLED';
@@ -24,6 +26,20 @@ export class ProductActions {
       type: ProductActions.ADD_PRODUCT,
       payload: product
     }
+  }
+
+  addProductFailed (error: any): Action {
+    return {
+      type: ProductActions.ADD_PRODUCT_FAILED,
+      payload: error
+    };
+  }
+
+  addProductFulfilled (product: any): Action {
+    return {
+      type: ProductActions.ADD_PRODUCT_FULFILLED,
+      payload: product
+    };
   }
 
   // Fetch product

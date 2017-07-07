@@ -7,6 +7,9 @@ export const ProductReducer: ActionReducer<any> = (state: any = [], { payload, t
       console.log('product')
       return state;
 
+    case ProductActions.ADD_PRODUCT_FULFILLED:
+      return [...state, payload.product];
+
     case ProductActions.FETCH_PRODUCTS_FULFILLED:
       return payload.products || [];
 

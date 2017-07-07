@@ -29,11 +29,9 @@ export class ProductEffect {
 
         console.log('product ', product);
 
-        // return this.productActions.fetchProductsFulfilled({
-        //   products: products['objects']
-        // })
+        return this.productActions.addProductFulfilled({product})
       })
-      .catch(error => Observable.of(this.productActions.fetchProductsFailed(error)))
+      .catch(error => Observable.of(this.productActions.addProductFailed(error)))
     );
 
   @Effect()
