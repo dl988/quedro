@@ -5,7 +5,7 @@ export const ProductReducer: ActionReducer<any> = (state: any = [], { payload, t
   switch (type) {
     case ProductActions.FETCH_PRODUCT:
       console.log('product')
-      return state[0];
+      return state;
 
     case ProductActions.FETCH_PRODUCTS_FULFILLED:
       return payload.products || [];
