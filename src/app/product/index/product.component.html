@@ -2,6 +2,7 @@
   <item-product
     *ngFor="let item of products | async"
     [product]="item"
+    (selected)="selectProduct($event)"
   ></item-product>
 </div>
 

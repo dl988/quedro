@@ -38,6 +38,15 @@ import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { HttpClient } from './http.client';
 
+// Common 
+import {
+  SelectedProductReducer
+} from './common/reducers';
+
+import {
+  SelectedProductActions
+} from './common/actions';
+
 // Product Component
 import { 
   ProductComponent,
@@ -115,7 +124,8 @@ type StoreType = {
     RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules }),
     StoreModule.provideStore({
       products: ProductReducer,
-      user: UserReducer
+      user: UserReducer,
+      selectedProduct: SelectedProductReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension({
       maxAge: 5
@@ -134,6 +144,7 @@ type StoreType = {
     ValidationService,
     ProductApi,
     UserActions,
+    SelectedProductActions,
     UserService,
     UserApi,
     AuthGuard,

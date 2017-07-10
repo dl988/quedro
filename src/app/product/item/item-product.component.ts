@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class ItemProductComponent implements OnInit {
   @Input() product;
+  @Output() selected = new EventEmitter();
 
   public menuState : string = 'out';
 

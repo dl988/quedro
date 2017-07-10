@@ -10,7 +10,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterState } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from "rxjs/Observable";
 
@@ -34,28 +34,30 @@ import { Observable } from "rxjs/Observable";
 
 export class EditProductComponent implements OnInit, OnDestroy {
   public menuState : string = 'out';
-  public currentID: number;
+  public id: Observable<string>;
+  public currentID: string;
   public sub : any;
 
-  constructor( public route: ActivatedRoute, public router: Router, public location: Location ) {
-    const id: Observable<string> = route.params.map(p => p.id);
-    const url: Observable<string> = route.url.map(segments => segments.join(''));
+  constructor( 
+    public route: ActivatedRoute, 
+    public router: Router, 
+    public location: Location,
+  ) {
+
+    const state: RouterState = router.routerState;
+    const root: ActivatedRoute = state.root;
+    const child = root.firstChild;
+    const id: Observable<string> = child.params.map(p => p.id);
+    this.id = id;
   }
 
   public ngOnInit() {
     let that = this;
 
-    console.log('queryParams ',{
-      params: this.route.params,
-      url: this.route.url
-    });
+    this.id.subscribe(id => {
 
-    this.route.params.subscribe(p => console.log('p.id ', p.id));
-
-    this.route.url.subscribe(segments => console.log('segments ', segments.join('')));
-
-    this.sub = this.router.routerState.parent(this.route).params.subscribe(params => {
-      that.currentID = params['id'];
+      console.log('p.id ', id);
+      that.currentID = id;
     });
 
     setTimeout(() => {
@@ -72,7 +74,5 @@ export class EditProductComponent implements OnInit, OnDestroy {
     }, 400);
   }
 
-  public ngOnDestroy () {
-    this.sub.unsubscribe();
-  }
+  public ngOnDestroy () {}
 }
