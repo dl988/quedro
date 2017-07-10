@@ -1,5 +1,5 @@
 #Ignore persional configuration
-/config/webpack.dev.js
+#/config/webpack.dev.js
 
 # @AngularClass
 
