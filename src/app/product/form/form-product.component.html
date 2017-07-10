@@ -1,17 +1,22 @@
 <form [formGroup]="producForm">
   <div class="form-group">
     <input type="text" class="form-control" placeholder="Street" formControlName="street">
+    <control-messages [control]="producForm.controls.street"></control-messages>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" placeholder="Zip" formControlName="zip">
+    <control-messages [control]="producForm.controls.zip"></control-messages>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" placeholder="City" formControlName="city">
+    <control-messages [control]="producForm.controls.city"></control-messages>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" placeholder="Residence type" formControlName="type">
+    <control-messages [control]="producForm.controls.type"></control-messages>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" placeholder="Price" formControlName="price">
+    <control-messages [control]="producForm.controls.price"></control-messages>
   </div>
 </form>

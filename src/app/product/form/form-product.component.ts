@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ValidationService } from './validation.service';
+import { ControlMessagesComponent } from './control-message.component';
 
 @Component({
   selector: 'form-product',
@@ -25,3 +27,8 @@ export class FormProductComponent implements OnInit {
 
   public ngOnInit() {}
 }
+
+export {
+  ValidationService,
+  ControlMessagesComponent
+};

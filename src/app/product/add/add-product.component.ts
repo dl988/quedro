@@ -10,10 +10,10 @@ import {
   transition
 } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isNumeric } from 'rxjs/util/isNumeric';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../product.actions';
+import { ValidationService } from '../form/validation.service'
 
 @Component({
   selector: 'add-product',
@@ -47,47 +47,16 @@ export class AddProductComponent implements OnInit {
 
   public ngOnInit() {
     let that = this;
-
-    function validateZipcode(c: FormControl) {
-      return c.value.length === 5  ? null : {
-        validateZipcode: {
-          valid: false
-        }
-      };
-    }
-
-    function validateIsNumber (c: FormControl) {
-      return isNumeric(c.value) ? null : {
-        validateIsNumber: {
-          valid: false
-        }
-      };
-    }
-
-    function validateType () {
+    function typeValidation (c: FormControl) {
       return (group: FormGroup) => {
-        if (group.controls['price'].value === null) {
-          return null;
-        } else {
+      console.log('form:  ',  this.producForm.controls);
+        if (group.controls['price'].value === 123) {
           return {
-            validateType: {
-              valid: false
-            }
-          }
+          typeValidation: false
+        };
         }
-      }
-    }
-
-    function validatePrice () {
-      return (group: FormGroup) => {
-        if (group.controls['type'].value === null) {
-          return {
-            validatePrice: {
-              valid: false
-            }
-          };
-        } else {
-          return null;
+        return  {
+          typeValidation: false
         }
       }
     }
@@ -96,16 +65,16 @@ export class AddProductComponent implements OnInit {
       street: [null, Validators.required],
       zip: new FormControl('', [
         Validators.required,
-        validateZipcode,
-        validateIsNumber
+        ValidationService.validateIsNumber,
+        ValidationService.validateZipcode
       ]),
       city: [null, Validators.required],
       type: new FormControl(null, [
-        validateType
+        ValidationService.validateType
       ]),
       price: new FormControl(null, [
-        validatePrice,
-        validateIsNumber
+        ValidationService.validatePrice,
+        ValidationService.validateIsNumber
       ])
     });
 
@@ -125,6 +94,5 @@ export class AddProductComponent implements OnInit {
 
   public save () {
     this.store.dispatch(this.productActions.addProduct(this.producForm.value));
-    console.log('save click ', this.producForm.value);
   }
 }
