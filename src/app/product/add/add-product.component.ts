@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../product.actions';
-import { ValidationService } from '../form/validation.service'
+import { ValidationService } from '../form/validation.service';
 
 @Component({
   selector: 'add-product',
@@ -47,19 +47,6 @@ export class AddProductComponent implements OnInit {
 
   public ngOnInit() {
     let that = this;
-    function typeValidation (c: FormControl) {
-      return (group: FormGroup) => {
-      console.log('form:  ',  this.producForm.controls);
-        if (group.controls['price'].value === 123) {
-          return {
-          typeValidation: false
-        };
-        }
-        return  {
-          typeValidation: false
-        }
-      }
-    }
 
     this.producForm = this.formBuilder.group({
       street: [null, Validators.required],

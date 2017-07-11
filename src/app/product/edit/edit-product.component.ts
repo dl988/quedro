@@ -11,8 +11,12 @@ import {
   transition
 } from '@angular/animations';
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable } from "rxjs/Observable";
+import { Store } from '@ngrx/store';
+import { ProductActions } from '../product.actions';
+import { ValidationService } from '../form/validation.service';
 
 @Component({
   selector: 'edit-product',
@@ -36,12 +40,17 @@ export class EditProductComponent implements OnInit, OnDestroy {
   public menuState : string = 'out';
   public id: Observable<string>;
   public currentID: string;
-  public sub : any;
+  public item: any;
+  public selectedProduct: Observable<any>;
+  public producForm: FormGroup;
 
   constructor( 
     public route: ActivatedRoute, 
-    public router: Router, 
+    public router: Router,
+    public store: Store<any>,
     public location: Location,
+    private formBuilder: FormBuilder,
+    private productActions: ProductActions
   ) {
 
     const state: RouterState = router.routerState;
@@ -49,15 +58,37 @@ export class EditProductComponent implements OnInit, OnDestroy {
     const child = root.firstChild;
     const id: Observable<string> = child.params.map(p => p.id);
     this.id = id;
+    this.selectedProduct = store.select('selectedProduct').take(2);
   }
 
   public ngOnInit() {
     let that = this;
 
-    this.id.subscribe(id => {
+    this.selectedProduct.subscribe(v => {
+      if (v) {
+        this.item = v;
+      }
+    });
 
-      console.log('p.id ', id);
+    this.id.subscribe(id => {
       that.currentID = id;
+    });
+
+    this.producForm = this.formBuilder.group({
+      street: [this.item? this.item.street : null, Validators.required],
+      zip: new FormControl(this.item? this.item.zip : null, [
+        Validators.required,
+        ValidationService.validateIsNumber,
+        ValidationService.validateZipcode
+      ]),
+      city: [this.item? this.item.city : null, Validators.required],
+      type: new FormControl(this.item? this.item.type : null, [
+        ValidationService.validateType
+      ]),
+      price: new FormControl(this.item? this.item.price : null, [
+        ValidationService.validatePrice,
+        ValidationService.validateIsNumber
+      ])
     });
 
     setTimeout(() => {
@@ -72,6 +103,13 @@ export class EditProductComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       that.router.navigate( ['detail', this.currentID]);
     }, 400);
+  }
+
+  public save () {
+    this.store.dispatch(this.productActions.updateProduct({
+      productId: this.currentID,
+      data: this.producForm.value
+    }));
   }
 
   public ngOnDestroy () {}

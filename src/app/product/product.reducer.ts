@@ -3,9 +3,14 @@ import { ProductActions } from './product.actions';
 
 export const ProductReducer: ActionReducer<any> = (state: any = [], { payload, type }) => {
   switch (type) {
-    case ProductActions.FETCH_PRODUCT:
-      console.log('product')
-      return state;
+    case ProductActions.UPDATED_PRODUCT:
+      console.log('UPDATED_PRODUCT ', payload);
+      return state.map(item => {
+        return item._id === payload._id ? payload : item;
+      });
+
+      // console.log('ProductReducer ', products);
+      // return products;
 
     case ProductActions.ADD_PRODUCT_FULFILLED:
       return [...state, payload.product];

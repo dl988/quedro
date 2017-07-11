@@ -1,9 +1,13 @@
 import { Action } from '@ngrx/store';
 
 export class ProductActions {
+  static UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+  static UPDATED_PRODUCT = 'UPDATED_PRODUCT';
+
   static ADD_PRODUCT = 'ADD_PRODUCT';
   static ADD_PRODUCT_FAILED = 'ADD_PRODUCT_FAILED';
   static ADD_PRODUCT_FULFILLED = 'ADD_PRODUCT_FULFILLED';
+
   static FETCH_PRODUCT = 'FETCH_PRODUCT';
   static FETCH_PRODUCTS = 'FETCH_PRODUCTS';
   static FETCH_PRODUCTS_FULFILLED = 'FETCH_PRODUCTS_FULFILLED';
@@ -19,6 +23,21 @@ export class ProductActions {
   //  FETCH
   //-----------------------------------
 
+
+  // Update product
+  updateProduct (product: any): Action {
+    return {
+      type: ProductActions.UPDATE_PRODUCT,
+      payload: product
+    }
+  }
+
+  updatedProduct (product: any): Action {
+    return {
+      type: ProductActions.UPDATED_PRODUCT,
+      payload: product
+    }
+  }
 
   // Add product
   addProduct (product: any): Action {
@@ -43,9 +62,10 @@ export class ProductActions {
   }
 
   // Fetch product
-  fetchProduct (): Action {
+  fetchProduct (productID: any): Action {
     return {
-      type: ProductActions.FETCH_PRODUCT
+      type: ProductActions.FETCH_PRODUCT,
+      payload: productID
     }
   }
 

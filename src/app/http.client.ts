@@ -28,4 +28,13 @@ export class HttpClient {
       headers: headers
     });
   }
+
+  patch (url, data) {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+
+    return this.http.patch(url, data, {
+      headers: headers
+    });
+  }
 }

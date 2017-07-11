@@ -15,9 +15,18 @@ export class ProductApi {
 
   constructor(private http: HttpClient) {}
 
+  updateProduct(productId, data): Observable<any> {
+
+    return this.http.patch(`${API_TASKS_URL}/${productId}`, data);
+  }
+
   addProduct(product): Observable<any> {
 
     return this.http.post(API_TASKS_URL, product);
+  }
+
+  fetchProduct(productId): Observable<any> {
+    return this.http.get(`${API_TASKS_URL}/${productId}`);
   }
 
   fetchProducts(): Observable<any> {
